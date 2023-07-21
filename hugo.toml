@@ -1,0 +1,10 @@
+baseURL = 'https://iampiyushkrsingh.github.io/'
+languageCode = 'en-us'
+theme = 'anatole'
+enableEmoji = true
+
+[params]
+title = "I'm Piyush Kumar Singh"
+author = 'Piyush Kumar Singh'
+description = 'Blogging and personal website for Piyush Singh.'
+profilePicture = "./images/profile-pic.jpg"
