@@ -1,0 +1,71 @@
+baseUbaseURL: "https://iampiyushkrsingh.github.io/"
+languageCode: "en-us"
+theme: "PaperMod"
+enableEmoji: true
+Copyright:
+title: "Piyush Kumar Singh"
+author: "Piyush Kumar Singh"
+
+mainSections:
+  - blog
+
+params:
+  hideFooter: false
+  disableScrollToTop: true
+
+  label:
+    icon: "images/icon.gif"
+    iconHeight: 50
+
+  assets:
+    favicon: "favicon/favicon.ico"
+    favicon16x16: "favicon/favicon-16x16.png"
+    favicon32x32: "favicon/favicon-32x32.png"
+    apple_touch_icon: "favicon/apple_touch_icon.png"
+
+  profileMode:
+    enabled: true
+    title: "I'm Piyush Kumar Singh" # optional default will be site title
+    subtitle: "Blogging and personal website."
+    author: "Piyush Kumar Singh"
+    imageUrl: "images/profile_pic.jpg" # optional
+    imageTitle: "Profile Image" # optional
+    imageWidth: 300 # custom size
+    imageHeight: 300 # custom size
+    buttons:
+      - name: Blogs
+        url: "/blog"
+
+    homeInfoParams:
+      Title: "Piyush Kumar Singh"
+      Content: "Hello this is bull shit."
+
+  socialIcons: # optional
+    - name: "Linkedin"
+      url: "https://www.linkedin.com/in/piyush-kumar-singh-p091204/"
+    - name: "YouTube"
+      url: "https://www.youtube.com/@piyushkrsingh"
+    - name: "Github"
+      url: "https://github.com/iamPiyushKrSingh"
+    - name: "Instagram"
+      url: "https://www.instagram.com/piyushsingh9120/"
+
+menu:
+  main:
+    - name: Home
+      pageRef: /
+      weight: 10
+    - name: Blogs
+      pageRef: /blog
+      weight: 20
+    - name: Archives
+      url: /archives
+      weight: 30
+    - name: About Me
+      pageRef: /about-me
+      weight: 40
+    - name: Contact Me
+      pageRef: /contact
+      weight: 50
+
+  # footer:

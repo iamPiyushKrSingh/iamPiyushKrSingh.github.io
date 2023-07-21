@@ -1,10 +1,12 @@
 baseURL = 'https://iampiyushkrsingh.github.io/'
 languageCode = 'en-us'
-theme = 'anatole'
+theme = 'PaperMod'
 enableEmoji = true
 
 [params]
 title = "I'm Piyush Kumar Singh"
 author = 'Piyush Kumar Singh'
 description = 'Blogging and personal website for Piyush Singh.'
-profilePicture = "./images/profile-pic.jpg"
+profilePicture = "images/profile_pic.jpg"
+
+mainSections = ["blog"]
