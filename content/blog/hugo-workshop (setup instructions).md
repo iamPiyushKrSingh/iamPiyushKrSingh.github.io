@@ -2,6 +2,11 @@
 title: "Hugo Workshop (Setup Instructions)"
 date: 2023-10-13T07:08:51+05:30
 draft: false
+author: "Me"
+showToc: true
+UseHugoToc: true
+ShowWordCount: true
+TocOpen: true
 ---
 
 ## Installing `Chocolatey` for Windows users
@@ -31,7 +36,7 @@ choco install git.install
 Finally, Check whether Git is installed Successfully or not? Pass the command
 
 ```powershell
-git -version
+git --version
 
 # Output
 # git version 2.42.0
@@ -70,5 +75,3 @@ Now you all can guess the command for installing **HUGO** (but run in administra
 ```powershell
 choco install hugo-extended
 ```
-
-This is a test.
