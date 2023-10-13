@@ -70,3 +70,5 @@ Now you all can guess the command for installing **HUGO** (but run in administra
 ```powershell
 choco install hugo-extended
 ```
+
+This is a test.
