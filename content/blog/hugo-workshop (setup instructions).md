@@ -65,7 +65,7 @@ And then follow the instructions (make sure you are logged in to your GitHub acc
 
 ## Installing HUGO
 
-Now you all can guess the command for installing **HUGO** (but run in administrative poershell),
+Now you all can guess the command for installing **HUGO** (but run in administrative powershell),
 
 ```powershell
 choco install hugo-extended
