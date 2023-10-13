@@ -13,22 +13,22 @@ params:
   hideFooter: false
   disableScrollToTop: true
 
-  label:
-    icon: "images/icon.gif"
-    iconHeight: 50
+  # label:
+  #   icon: "images/icon.gif"
+  #   iconHeight: 50
 
-  assets:
-    favicon: "favicon/favicon.ico"
-    favicon16x16: "favicon/favicon-16x16.png"
-    favicon32x32: "favicon/favicon-32x32.png"
-    apple_touch_icon: "favicon/apple_touch_icon.png"
+  # assets:
+  #   favicon: "favicon/favicon.ico"
+  #   favicon16x16: "favicon/favicon-16x16.png"
+  #   favicon32x32: "favicon/favicon-32x32.png"
+  #   apple_touch_icon: "favicon/apple_touch_icon.png"
 
   profileMode:
     enabled: true
     title: "I'm Piyush Kumar Singh" # optional default will be site title
     subtitle: "Blogging and personal website."
     author: "Piyush Kumar Singh"
-    imageUrl: "images/profile_pic.jpg" # optional
+    imageUrl: "images/profileImg.jpg" # optional
     imageTitle: "Profile Image" # optional
     imageWidth: 300 # custom size
     imageHeight: 300 # custom size
