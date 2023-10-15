@@ -68,7 +68,7 @@ now we will see meaning of each flag,
 Since, this pushes the commit as well so essentially your github repo should contain **HUGO** files.
 ![initial commit](/images/blog/initial-commit.png)
 
-## Cusmotizing our metadata
+## Customizing your metadata
 
 Since this is our personal blogging site so we should have good landing page with showing who you are with some *social media*. For example, we have a defined page in our theme (see [Fig](https://github.com/adityatelange/hugo-PaperMod/wiki/Features#profile-mode)).
 
