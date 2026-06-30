@@ -1,0 +1,413 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+import { parseMathInText } from "../utils/parseMath";
+import { iconMap } from "../utils/iconMap";
+
+const categories = [
+  "Notes and Material",
+  "Research Projects",
+  "Coding Projects",
+];
+
+const rawProjects = await getCollection("projects");
+const projects = await Promise.all(
+  rawProjects.map(async (p, originalIndex) => {
+    const { Content } = await render(p);
+    return {
+      ...p,
+      data: {
+        ...p.data,
+        icon: iconMap[p.data.icon] || iconMap.code,
+      },
+      originalIndex,
+      Content,
+    };
+  }),
+);
+
+const projectsByCategory = categories.map((cat) => ({
+  name: cat,
+  projects: projects.filter((p) => p.data.category === cat),
+}));
+---
+
+<Layout title="Projects | Piyush Kumar Singh">
+  <div class="max-w-[100rem] mx-auto px-6 md:px-12 pt-12 pb-24">
+    <div class="max-w-7xl mx-auto w-full">
+      <header class="mb-16 border-b border-neutral-800 pb-10 text-center">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4 font-[Outfit]"
+          transition:name="page-title"
+        >
+          Projects
+        </h1>
+        <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
+          A detailed collection of my research, physics simulations, and web
+          development experiments. Click on any project to view its details.
+        </p>
+      </header>
+
+      <div class="flex flex-col gap-20">
+        {
+          projects.length === 0 && (
+            <div class="min-h-[50vh] w-7xl flex flex-col items-center justify-center border border-dashed border-neutral-800 rounded-2xl bg-neutral-900/20">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-zinc-600 mb-4"
+              >
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                <line x1="12" y1="22.08" x2="12" y2="12" />
+              </svg>
+              <p class="text-zinc-400 font-medium text-lg">
+                Brainstorming in progress
+              </p>
+              <p class="text-zinc-600 text-sm mt-1">
+                New experiments and projects are being engineered in the lab.
+              </p>
+            </div>
+          )
+        }
+        {
+          projectsByCategory.map(
+            (category) =>
+              category.projects.length > 0 && (
+                <section>
+                  <div class="flex items-center gap-6 mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold font-[Outfit] text-white tracking-wide shrink-0">
+                      {category.name}
+                    </h2>
+                    <div class="h-px bg-gradient-to-r from-neutral-700 to-transparent grow mt-2" />
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {category.projects.map((project) => (
+                      <div
+                        class="project-card cursor-pointer group bg-neutral-900/40 rounded-2xl border border-neutral-700 shadow-lg overflow-hidden transition-all duration-300 hover:bg-neutral-800/60 hover:-translate-y-1 hover:border-zinc-500/50 p-6 flex flex-col h-full transform-gpu"
+                        data-project-index={project.originalIndex}
+                      >
+                        <div class="flex items-center gap-4 mb-5">
+                          <div
+                            class="project-icon bg-neutral-900/80 p-3 rounded-2xl border border-neutral-700/50 shadow-inner shrink-0"
+                            set:html={project.data.icon}
+                          />
+                          <h3
+                            class="text-xl font-bold font-[Outfit] text-white group-hover:text-zinc-400 transition-colors line-clamp-2"
+                            set:html={parseMathInText(project.data.title)}
+                          />
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-5">
+                          {project.data.tags.map((tag) => (
+                            <span class="px-3 py-1 rounded-full border border-neutral-700 bg-neutral-800/50 text-neutral-300 text-xs font-mono tracking-wide project-tag">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        <p
+                          class="project-summary text-neutral-400 text-sm leading-relaxed line-clamp-3 mb-6"
+                          set:html={parseMathInText(project.data.summary)}
+                        />
+
+                        <div
+                          class="project-content-html hidden"
+                          id={`content-${project.id}`}
+                        >
+                          <project.Content />
+                        </div>
+
+                        <div class="mt-auto pt-4 border-t border-neutral-800/50 flex items-center justify-between text-zinc-500 text-sm font-medium">
+                          <span>View Details</span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="transition-transform group-hover:translate-x-1"
+                          >
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ),
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Details Modal -->
+  <dialog
+    id="project-modal"
+    class="bg-transparent p-0 m-auto backdrop:bg-black/80 rounded-2xl shadow-2xl max-w-4xl w-[calc(100%-2rem)] sm:w-full sm:mx-auto border-none group/modal"
+    style="will-change: transform, opacity; backface-visibility: hidden; transform-origin: center;"
+  >
+    <div
+      id="modal-container"
+      class="bg-neutral-950 border border-neutral-700 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col max-h-[90vh] w-full"
+    >
+      <!-- Sticky Header -->
+      <div
+        class="p-6 md:p-8 pb-4 md:pb-6 bg-neutral-950/95 border-b border-neutral-800/50 z-10 shrink-0 w-full transform-gpu"
+      >
+        <div class="flex justify-between items-start mb-6 gap-4">
+          <div class="flex items-center gap-4 sm:gap-5 min-w-0">
+            <div
+              id="modal-icon"
+              class="bg-neutral-900/80 p-3.5 rounded-2xl border border-neutral-700/50 shadow-inner shrink-0"
+            >
+            </div>
+            <h2
+              id="modal-title"
+              class="text-2xl md:text-3xl font-bold font-[Outfit] text-white wrap-break-word"
+            >
+            </h2>
+          </div>
+          <button
+            id="modal-close"
+            class="text-neutral-500 hover:text-white transition-colors bg-neutral-900 hover:bg-neutral-800 p-2.5 rounded-full shrink-0 border border-neutral-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+            >
+          </button>
+        </div>
+
+        <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- Scrollable Body -->
+      <div
+        class="p-6 md:p-8 overflow-y-auto overscroll-contain min-h-0 relative transform-gpu"
+      >
+        <blockquote
+          id="modal-summary"
+          class="mb-8 border-l-4 border-zinc-500/50 bg-zinc-500/5 pl-5 py-4 pr-4 rounded-r-xl text-zinc-200/90 italic font-medium text-[1.05rem] hidden"
+        >
+        </blockquote>
+
+        <div id="modal-details" class="prose-global"></div>
+      </div>
+    </div>
+  </dialog>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const modal = document.getElementById("project-modal") as HTMLDialogElement;
+    const cards = document.querySelectorAll(".project-card");
+    const closeBtn = document.getElementById("modal-close");
+
+    if (!modal || !cards.length || !closeBtn) return;
+
+    const modalIcon = document.getElementById("modal-icon");
+    const modalTitle = document.getElementById("modal-title");
+    const modalTags = document.getElementById("modal-tags");
+    const modalSummary = document.getElementById("modal-summary");
+    const modalDetails = document.getElementById("modal-details");
+
+    let activeCard: HTMLElement | null = null;
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const cardTitle = card.querySelector("h3");
+        const cardIcon = card.querySelector(".project-icon");
+        const cardSummary = card.querySelector(".project-summary");
+        const cardTags = card.querySelectorAll(".project-tag");
+        const cardContent = card.querySelector(".project-content-html");
+
+        const updateModalData = () => {
+          if (cardTitle && modalTitle) {
+            modalTitle.innerHTML = cardTitle.innerHTML;
+          }
+
+          if (cardIcon && modalIcon) {
+            modalIcon.innerHTML = cardIcon.innerHTML;
+          }
+
+          if (modalTags) {
+            modalTags.innerHTML = "";
+            cardTags.forEach((tag) => {
+              const span = document.createElement("span");
+              span.className = tag.className;
+              span.textContent = tag.textContent;
+              modalTags.appendChild(span);
+            });
+          }
+
+          if (modalSummary && cardSummary) {
+            modalSummary.innerHTML = cardSummary.innerHTML;
+            modalSummary.classList.remove("hidden");
+          } else if (modalSummary) {
+            modalSummary.classList.add("hidden");
+          }
+
+          if (modalDetails && cardContent) {
+            modalDetails.innerHTML = cardContent.innerHTML;
+          }
+
+          modal.showModal();
+          document.body.style.overflow = "hidden"; // Prevent background scrolling
+        };
+        const cardRect = card.getBoundingClientRect();
+        updateModalData();
+        activeCard = card as HTMLElement;
+        if (activeCard) activeCard.style.visibility = "hidden";
+
+        // Wait a tiny frame for the modal to layout its content
+        requestAnimationFrame(() => {
+          const modalRect = modal.getBoundingClientRect();
+
+          const scaleX = cardRect.width / modalRect.width;
+          const scaleY = cardRect.height / modalRect.height;
+          const translateX =
+            cardRect.left -
+            modalRect.left +
+            (cardRect.width - modalRect.width) / 2;
+          const translateY =
+            cardRect.top -
+            modalRect.top +
+            (cardRect.height - modalRect.height) / 2;
+
+          modal.animate(
+            [
+              {
+                transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`,
+                opacity: 0.5,
+              },
+              {
+                transform: "translate(0, 0) scale(1, 1)",
+                opacity: 1,
+              },
+            ],
+            {
+              duration: 350,
+              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+            },
+          );
+        });
+      });
+    });
+
+    const closeModal = () => {
+      const executeClose = () => {
+        modal.close();
+        document.body.style.overflow = "";
+
+        // Remove the ?id= parameter from the URL without reloading the page
+        window.history.replaceState(null, "", window.location.pathname);
+      };
+
+      if (activeCard) {
+        const cardRect = activeCard.getBoundingClientRect();
+        const modalRect = modal.getBoundingClientRect();
+
+        const scaleX = cardRect.width / modalRect.width;
+        const scaleY = cardRect.height / modalRect.height;
+        const translateX =
+          cardRect.left -
+          modalRect.left +
+          (cardRect.width - modalRect.width) / 2;
+        const translateY =
+          cardRect.top -
+          modalRect.top +
+          (cardRect.height - modalRect.height) / 2;
+
+        const anim = modal.animate(
+          [
+            {
+              transform: "translate(0, 0) scale(1, 1)",
+              opacity: 1,
+            },
+            {
+              transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`,
+              opacity: 0,
+            },
+          ],
+          {
+            duration: 300,
+            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          },
+        );
+
+        anim.onfinish = () => {
+          if (activeCard) activeCard.style.visibility = "visible";
+          executeClose();
+          activeCard = null;
+        };
+      } else {
+        modal.style.animation =
+          "modal-zoom 0.15s cubic-bezier(0.16, 1, 0.3, 1) reverse";
+        setTimeout(() => {
+          executeClose();
+          modal.style.animation = "";
+        }, 140);
+      }
+    };
+
+    closeBtn.addEventListener("click", closeModal);
+
+    // Intercept native ESC key close to run our animation
+    modal.addEventListener("cancel", (e) => {
+      e.preventDefault();
+      closeModal();
+    });
+
+    // Close on click outside
+    modal.addEventListener("click", (e) => {
+      const dialogDimensions = modal.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        closeModal();
+      }
+    });
+
+    // Handle URL parameters to auto-open modal
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get("id");
+    if (projectId) {
+      // Find the card whose project content div has the id matching the parameter
+      const targetCard = Array.from(cards).find((card) => {
+        const contentDiv = card.querySelector(".project-content-html");
+        return contentDiv && contentDiv.id === `content-${projectId}`;
+      });
+      if (targetCard) {
+        // Ensure the background page is scrolled to this project
+        targetCard.scrollIntoView({ behavior: "instant", block: "center" });
+        // Trigger click event
+        (targetCard as HTMLElement).click();
+      }
+    }
+  });
+</script>

@@ -1,0 +1,264 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import profileImg from "../assets/profile.jpg";
+---
+
+<Layout title="About Me | Piyush Kumar Singh">
+  <div class="max-w-[100rem] mx-auto px-6 md:px-12 pt-12 pb-24">
+    <header class="mb-16">
+      <h1
+        class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4 font-[Outfit]"
+        transition:name="page-title"
+      >
+        About Me
+      </h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">
+        A brief overview of my academic background, research interests, and
+        technical skills.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <!-- Sidebar / Quick Info -->
+      <aside class="lg:col-span-1">
+        <div
+          class="space-y-5 lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:overscroll-contain lg:pb-4 lg:pr-4"
+        >
+          <!-- Profile Image -->
+          <div class="flex justify-center">
+            <div
+              class="relative w-56 h-56 lg:w-78 lg:h-78 rounded-full p-1 md:p-2 border border-neutral-700 bg-neutral-900/50 shadow-xl shadow-zinc-500/10 group hover:shadow-2xl hover:shadow-zinc-500/30 transition-shadow duration-500 transform-gpu"
+            >
+              <Image
+                src={profileImg}
+                alt="Piyush Kumar Singh"
+                width={600}
+                height={600}
+                quality="max"
+                class="w-full h-full object-cover rounded-full"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+                transition:name="profile-image"
+              />
+              <div
+                class="absolute inset-0 rounded-full border border-zinc-500/30 ring-1 ring-zinc-500/10 group-hover:border-zinc-400/50 transition-colors duration-500 pointer-events-none"
+              >
+              </div>
+            </div>
+          </div>
+          <!-- Education -->
+          <div
+            class="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-5 transform-gpu"
+          >
+            <h3
+              class="text-zinc-400 font-semibold mb-4 flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path
+                  d="M6 12v5c3 3 9 3 12 0v-5"></path></svg
+              >
+              Education
+            </h3>
+            <ul class="space-y-4">
+              <li>
+                <div class="font-medium text-lg text-neutral-100">
+                  BSMS Dual Degree
+                </div>
+                <div class="text-base text-neutral-400">
+                  IISER Kolkata (CGPA: <span
+                    class="text-neutral-300 font-medium">9.52</span
+                  >)
+                </div>
+                <div class="text-base text-neutral-500 mt-1">
+                  Major: Physics
+                </div>
+                <div class="text-base text-neutral-500">Minor: Mathematics</div>
+                <div class="text-base text-neutral-500 mt-1">
+                  2022 — Present (5th Year)
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Research Interests -->
+          <div
+            class="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-5 transform-gpu"
+          >
+            <h3
+              class="text-neutral-300 font-semibold mb-4 flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                ></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"
+                ></polyline><line x1="12" y1="22.08" x2="12" y2="12"
+                ></line></svg
+              >
+              Research Interests
+            </h3>
+            <ul class="space-y-2 text-base text-neutral-400">
+              <li>Quantum Field Theory</li>
+              <li>String Theory</li>
+              <li>Particle Physics</li>
+              <li>Mathematical Physics</li>
+            </ul>
+          </div>
+
+          <!-- Personal Interests -->
+          <div
+            class="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-5 transform-gpu"
+          >
+            <h3
+              class="text-neutral-300 font-semibold mb-4 flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                ></path></svg
+              >
+              Personal Interests
+            </h3>
+            <ul class="space-y-2 text-base text-neutral-400">
+              <li>Gaming (GoW, GTA, CoDM)</li>
+              <li>Table Tennis & Cricket</li>
+              <li>Indian Politics & History</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="lg:col-span-2">
+        <div class="prose-global md:prose-lg max-w-none about-content">
+          <!-- <h2 class="mt-0">Biography</h2> -->
+          <p>
+            My name is <strong>Piyush Kumar Singh</strong>. I am currently in my
+            final year of the BSMS dual degree program at the Indian Institute
+            of Science Education and Research (IISER) Kolkata.
+          </p>
+          <p>
+            My academic focus is deeply rooted in Theoretical Physics,
+            specifically exploring the mathematical structures that govern the
+            universe at its most fundamental levels. I am pursuing a major in
+            Physics alongside a minor in Mathematics, which provides me with the
+            rigorous analytical tools necessary for my research.
+          </p>
+
+          <h2>Research Interests</h2>
+          <p>
+            My primary research interests lie at the intersection of <strong
+              >Quantum Field Theory (QFT)</strong
+            > and <strong>String Theory</strong>. For my master's thesis, I am
+            exploring the framework of the Unitary Renormalization Group (URG) (<a
+              href="https://arxiv.org/abs/2004.06897"
+              target="_blank"
+              rel="noopener noreferrer">1</a
+            >, <a
+              href="https://arxiv.org/abs/2004.06900"
+              target="_blank"
+              rel="noopener noreferrer">2</a
+            >) in the context of QFTs. I am applying this formalism to study
+            various complex states of matter, including bound states in Quantum
+            Electrodynamics (QED) and exotic states of nucleonic matter.
+          </p>
+          <p>
+            In addition to my thesis work, I am actively investigating <a
+              href="https://arxiv.org/abs/0709.0293"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Effective Field Theories (EFTs) of Inflation</a
+            >. I am specifically interested in how one can formulate an <a
+              href="https://arxiv.org/abs/2404.15416"
+              target="_blank"
+              rel="noopener noreferrer"
+              >open quantum field theory of inflation</a
+            >, and I am exploring the cosmological implications and fundamental
+            results of this novel approach.
+          </p>
+          <p>
+            Within String Theory, I am continuously exploring its vast
+            theoretical landscape. As part of this pursuit, I am currently
+            studying the AdS/CFT correspondence—guided by <a
+              href="https://arxiv.org/abs/0712.0689"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Horatiu Nastase's comprehensive review</a
+            >—to better understand the holographic principle and gauge/gravity
+            duality.
+          </p>
+          <p>
+            To support my research with rigorous analytical tools, I am deeply
+            invested in advancing my mathematical foundation. I am currently
+            studying differential geometry and its profound emergence in
+            theoretical physics, heavily inspired by Frederic P. Schuller's
+            lecture series, <em
+              ><a
+                href="https://youtube.com/playlist?list=PLPH7f_7ZlzxTi6kS4vCmv4ZKm9u8g5yic&si=sdWK9mjp0GjXXI4U"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Geometrical Anatomy of Theoretical Physics</a
+              ></em
+            >.
+          </p>
+
+          <h2>Personal Interests & Hobbies</h2>
+          <p>
+            When I'm not immersed in theoretical physics, I am an avid gamer. I
+            enjoy exploring story-rich single-player titles like <em
+              >God of War</em
+            > and the <em>GTA</em> series, as well as teaming up in multiplayer games
+            like <em>Call of Duty Mobile</em> and <em>Clash of Clans</em>.
+          </p>
+          <p>
+            I am also a huge sports enthusiast. You can often find me following
+            cricket closely, or at the table tennis table trying my best to
+            improve my game! Beyond sports and gaming, I have a deep curiosity
+            for Indian politics and history. I follow political news quite
+            regularly, as understanding historical contexts and current
+            geopolitical landscapes is one of my favorite intellectual hobbies
+            outside of academia.
+          </p>
+
+          <hr class="border-neutral-800 my-10" />
+
+          <p>
+            Through this website, I plan to share my thoughts, derivations, and
+            study notes on advanced physics topics. If you share similar
+            interests or want to discuss physics, feel free to <a
+              href="/contact">reach out</a
+            >!
+          </p>
+        </div>
+      </main>
+    </div>
+  </div>
+</Layout>

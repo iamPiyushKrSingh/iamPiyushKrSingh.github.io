@@ -1,0 +1,315 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: "Merriweather", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@layer components {
+  .prose-global {
+    @apply prose prose-invert max-w-none w-full min-w-0 text-neutral-300
+      prose-headings:font-bold prose-headings:font-[Outfit] prose-headings:text-neutral-100
+      prose-p:leading-loose
+      prose-img:w-full prose-img:m-0 prose-img:rounded-2xl prose-img:shadow-lg prose-img:shadow-black/20
+      prose-code:text-zinc-200 prose-code:bg-zinc-950/40 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-medium prose-code:before:content-none prose-code:after:content-none
+      prose-table:w-full prose-th:text-left prose-th:border-b prose-th:border-zinc-700 prose-td:border-b prose-td:border-zinc-800/50 prose-td:py-3 prose-li:my-1
+      prose-blockquote:border-l-zinc-500 prose-blockquote:bg-zinc-950/20 prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-lg;
+    
+    /* Safely break long links/math strings */
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Link Styling for Markdown Content */
+  .prose-global a {
+    color: #d4d4d8 !important;
+    text-decoration-line: underline !important;
+    text-decoration-color: #71717a !important;
+    text-decoration-style: dotted !important;
+    text-underline-offset: 4px !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+  }
+  .prose-global a:hover {
+    color: #ffffff !important;
+    text-decoration-color: #d4d4d8 !important;
+    text-decoration-style: solid !important;
+  }
+
+  /* Section Numbering for Markdown Content */
+  .prose-global {
+    counter-reset: h2-counter;
+  }
+  .prose-global h2 {
+    counter-increment: h2-counter;
+    counter-reset: h3-counter;
+  }
+  .prose-global h2::before {
+    content: "§" counter(h2-counter) ". ";
+    color: #a1a1aa;
+    margin-right: 0.5rem;
+  }
+  .prose-global h3 {
+    counter-increment: h3-counter;
+  }
+  .prose-global h3::before {
+    content: "§" counter(h2-counter) "." counter(h3-counter) " ";
+    color: #a1a1aa;
+    margin-right: 0.5rem;
+  }
+
+  .prose-global table {
+    @apply block overflow-x-auto whitespace-nowrap max-w-full;
+  }
+
+  .prose-global pre {
+    @apply rounded-xl! border! border-neutral-800/50! shadow-lg overflow-x-auto max-w-full;
+  }
+  
+  .prose-global pre code {
+    @apply bg-transparent text-inherit p-0 font-normal;
+  }
+
+  .prose-global figure {
+    @apply w-full sm:w-3/4 sm:mx-auto my-10;
+  }
+}
+
+/* Scale down the entire site layout by 10% (mimicking a 90% zoom level) */
+html {
+  font-size: 90%;
+}
+/* Custom styles for Math/KaTeX to ensure proper scrolling on small screens */
+.math-display {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 1rem 0;
+  max-width: 100% !important;
+}
+
+.katex-display {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 1rem 0;
+  max-width: 100% !important;
+}
+
+.numbered-math {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+article .numbered-math .katex-display {
+  counter-increment: eq-counter;
+}
+
+/* Number display and right-alignment */
+article .numbered-math .katex-display::after {
+  content: "(" counter(eq-counter) ")";
+  float: right;
+  font-family: 'Inter', sans-serif;
+  color: #94a3b8; /* neutral-400 */
+}
+
+/* Ensure inline math doesn't break lines awkwardly */
+.katex {
+  white-space: nowrap;
+}
+
+/* Atom Logo Animations */
+@keyframes atom-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-atom {
+  animation: atom-spin 20s linear infinite;
+}
+
+.group:hover .animate-atom {
+  animation-duration: 3s;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Bibliography / Citation Styling */
+.csl-entry {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.csl-left-margin {
+  flex-shrink: 0;
+  color: #71717a; /* zinc-500 */
+  font-weight: 600;
+}
+
+.csl-right-inline {
+  flex-grow: 1;
+}
+
+/* Global mobile responsiveness overrides */
+.expressive-code {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: auto !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+.expressive-code .frame {
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+.expressive-code pre {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+table {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  display: block !important;
+}
+
+/* Fix Tailwind Typography prose class applying border-radius to expressive-code <pre> tags and breaking title bars */
+.prose .expressive-code pre {
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+
+/* Dialog Animations (Projects Page) */
+dialog.fallback-anim[open] {
+  animation: modal-zoom 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+dialog::backdrop {
+  animation: modal-fade 0.3s ease-out forwards;
+}
+@keyframes modal-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Details Formatting */
+#modal-details p {
+  margin-bottom: 1rem;
+}
+#modal-details p:last-child {
+  margin-bottom: 0;
+}
+
+#modal-details strong {
+  color: #71717a;
+}
+#modal-details img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(64, 64, 64, 0.5);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Morph Animation Tuning */
+::view-transition-group(project-card-morph),
+::view-transition-group(project-title-morph) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom Themed Auto-Hiding Scrollbar */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(113, 113, 122, 0.5) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(113, 113, 122, 0.5); /* zinc-500 */
+}
+*:hover::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(161, 161, 170, 0.8); /* zinc-400 */
+}
+body::-webkit-scrollbar-thumb {
+  /* Always show a solid thumb for the main body to act as a reading tracker */
+  background-color: rgba(113, 113, 122, 0.5);
+}
+body:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(113, 113, 122, 0.6);
+}
+body:hover::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(161, 161, 170, 0.9);
+}
+
+/* Global Reveal Animations */
+.reveal-on-load,
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.delay-100 {
+  transition-delay: 100ms;
+}
+.delay-200 {
+  transition-delay: 200ms;
+}
+.delay-300 {
+  transition-delay: 300ms;
+}
+.delay-500 {
+  transition-delay: 500ms;
+}

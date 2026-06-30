@@ -1,0 +1,48 @@
+# Project Icons Reference Guide
+
+This is a quick reference for all the icons available in your `src/utils/iconMap.ts` file. 
+
+When creating a new project markdown file in this folder, you can use any of the exact string names listed below in your frontmatter's `icon` field.
+
+```markdown
+---
+title: "My Awesome Project"
+category: "Coding Projects"
+icon: "terminal"     <-- USE ONE OF THE NAMES BELOW
+tags: ["Cool", "Stuff"]
+summary: "Summary of the project..."
+---
+```
+
+## Available Icons
+
+### 📚 Notes and Material
+Icons representing studying, reading, and documentation:
+- `book-open`: An open book (classic for notes)
+- `file-text`: A standard page with writing
+- `library`: A stack of books / classical columns
+- `graduation-cap`: Perfect for university course materials
+- `bookmark`: For curated lists or reference materials
+- `archive`: For old coursework or legacy notes
+
+### 🔬 Research Projects
+Icons representing science, discovery, and data (tailored for Physics & Math):
+- `atom`: An atomic model (great for physics)
+- `flask`: A classic chemistry/science flask
+- `microscope`: For deep-dive, granular research
+- `telescope`: For astrophysics or broad-scope research
+- `network`: Nodes connected by lines (great for complex systems or QFT)
+- `line-chart`: For data analysis and statistical mechanics
+- `lightbulb`: For theoretical physics and new ideas
+
+### 💻 Coding Projects
+Icons representing software, hardware, and engineering:
+- `terminal`: A command-line prompt `>_` (great for scripts and CLIs)
+- `code`: The classic `</>` angle brackets
+- `cpu`: A microchip (perfect for low-level or C++ projects)
+- `database`: A stack of disks for backend/data projects
+- `server`: Server racks for web architecture projects
+- `bot`: A robot face (ideal for Neural Networks and AI projects)
+- `box`: A 3D cube (great for graphics, engines, or packages)
+
+> **Note:** If you ever need more icons, you can find the SVGs on [lucide.dev](https://lucide.dev) and add them to the `src/utils/iconMap.ts` file!

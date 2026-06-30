@@ -1,0 +1,5 @@
+
+> iampiyushkrsingh.github.io@0.0.1 dev
+> astro dev --port 4321
+
+{"message":"Dev server already running at http://localhost:4321 (pid 215804)\n  Network:\n    http://10.36.129.1:4321/\n    http://10.36.129.2:4321/\n  Stop:   astro dev stop\n  Status: astro dev status\n  Logs:   astro dev logs","label":"SKIP_FORMAT","level":"info"}

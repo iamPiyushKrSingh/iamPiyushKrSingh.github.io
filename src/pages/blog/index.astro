@@ -1,0 +1,153 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { parseMathInText } from "../../utils/parseMath";
+
+const posts = await getCollection("blog", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const postsByYear = posts.reduce(
+  (acc: Record<string, typeof posts>, post) => {
+    const year = post.data.pubDate.getFullYear().toString();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(post);
+    return acc;
+  },
+  {} as Record<string, typeof posts>,
+);
+const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout title="Blog | Piyush Kumar Singh">
+  <div class="max-w-[100rem] mx-auto px-6 md:px-12 pt-12 pb-24">
+    <div class="max-w-7xl mx-auto w-full">
+      <header class="mb-16 border-b border-neutral-800 pb-10 text-center">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4 font-[Outfit]"
+          transition:name="page-title"
+        >
+          Notes on the Universe
+        </h1>
+        <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
+          Thoughts, tutorials, and research notes spanning Physics, Mathematics,
+          and occasional programming tangents.
+        </p>
+      </header>
+
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-20 justify-center">
+        <!-- Main Content -->
+        <div
+          class={`grow w-full min-w-0 ${posts.length > 0 ? "max-w-5xl" : ""}`}
+        >
+          <div class="flex flex-col gap-16 min-w-0">
+            {
+              years.map((year) => (
+                <section id={`year-${year}`}>
+                  <h2 class="text-3xl font-extrabold text-neutral-200 mb-8 font-[Outfit] border-b border-neutral-800/60 pb-3 flex items-center">
+                    <span class="text-zinc-400 mr-3">#</span> {year}
+                  </h2>
+                  <div class="flex flex-col gap-8 pl-4 border-l border-neutral-800/60 ml-3">
+                    {postsByYear[year as keyof typeof postsByYear].map(
+                      (post: any) => (
+                        <a
+                          href={`/blog/${post.id}/`}
+                          class="group block relative pb-8 last:pb-0"
+                        >
+                          <div class="absolute w-2 h-2 bg-neutral-800 group-hover:bg-zinc-400 rounded-full -left-5.25 top-[0.4rem] transition-colors ring-4 ring-neutral-950" />
+                          <div class="text-xs text-zinc-400/90 mb-2 font-semibold tracking-wider uppercase">
+                            {post.data.pubDate.toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                            })}
+                          </div>
+                          <h3
+                            class="text-xl md:text-2xl font-bold text-neutral-100 group-hover:text-zinc-300 transition-colors mb-2 font-[Outfit] line-clamp-3"
+                            title={post.data.title}
+                            transition:name={`title-${post.id}`}
+                            set:html={parseMathInText(post.data.title)}
+                          />
+                          <p
+                            class="text-neutral-400 text-base leading-relaxed max-w-3xl line-clamp-2"
+                            set:html={parseMathInText(post.data.description)}
+                          />
+                        </a>
+                      ),
+                    )}
+                  </div>
+                </section>
+              ))
+            }
+          </div>
+
+          {
+            posts.length === 0 && (
+              <div class="min-h-[50vh] w-7xl flex flex-col items-center justify-center border border-dashed border-neutral-800 rounded-2xl bg-neutral-900/20">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-zinc-600 mb-4"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <p class="text-zinc-400 font-medium text-lg">
+                  Stay tuned for posts
+                </p>
+                <p class="text-zinc-600 text-sm mt-1">
+                  The universe is still expanding.
+                </p>
+              </div>
+            )
+          }
+        </div>
+
+        <!-- Floating Sidebar (Desktop Only) -->
+        {
+          posts.length > 0 && (
+            <aside class="hidden lg:block w-72 shrink-0 border-l border-neutral-800/60 pl-10 py-2">
+              <div class="sticky top-28 flex flex-col gap-8 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain pb-10 pr-2">
+                {years.map((year) => (
+                  <div>
+                    <h4 class="text-neutral-200 font-bold mb-3 font-[Outfit] border-b border-neutral-800 pb-2">
+                      {year}
+                    </h4>
+                    <ul class="flex flex-col gap-3">
+                      {postsByYear[year as keyof typeof postsByYear].map(
+                        (post: any) => (
+                          <li>
+                            <a
+                              href={`/blog/${post.id}/`}
+                              title={post.data.title}
+                              class="group flex items-start text-sm text-neutral-400 hover:translate-x-1 transition-transform duration-300"
+                            >
+                              <span class="text-zinc-500/50 group-hover:text-zinc-400 mr-2 shrink-0 mt-0.5 transition-colors duration-300">
+                                •
+                              </span>
+                              <span
+                                class="group-hover:text-zinc-200 transition-colors duration-300 leading-snug line-clamp-2"
+                                set:html={parseMathInText(post.data.title)}
+                              />
+                            </a>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </aside>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</Layout>
