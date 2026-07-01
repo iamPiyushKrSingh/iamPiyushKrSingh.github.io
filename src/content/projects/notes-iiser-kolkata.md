@@ -7,7 +7,7 @@ summary: "A collection of my lecture notes spanning Physics, Mathematics, and mo
 featured: true
 ---
 
-Following is my collection of lecture notes from the IISER Kolkata BSMS program. Some of the notes are in LaTeX, while others are handwritten. Below I am listing all the notes and assignments (which I feel are usable) for each course. However, I this is not all the notes I have, which can be found in the [GitLab Group](https://gitlab.com/latex-notes-iiserk).
+This my collection of lecture notes from the IISER Kolkata BSMS program. Some of the notes are in $\LaTeX$, while others are handwritten. Below I am listing all the notes and assignments (which I feel are usable) for each course. However, this is not all the notes I have, which can be found in the [GitLab Group](https://gitlab.com/latex-notes-iiserk).
 
 Exhaustive course material can be found on a common [Google Drive](https://drive.google.com/drive/folders/1RnmKkpTgGXKiLnttUB-llnjH1jB9yW6Z) folder, contributed by all the members of "IISER Coaching" group.
 
