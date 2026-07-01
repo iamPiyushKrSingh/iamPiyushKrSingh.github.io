@@ -48,9 +48,13 @@ const headerClass = desktopStickyHeader
     <title>{title}</title>
     <ClientRouter />
   </head>
-  <body class="text-neutral-100 text-base md:text-lg font-sans antialiased selection:bg-zinc-500/30 relative min-h-screen flex flex-col">
+  <body
+    class="text-neutral-100 text-base md:text-lg font-sans antialiased selection:bg-zinc-500/30 relative min-h-screen flex flex-col"
+  >
     <!-- Ambient Background Glows (Hidden on mobile for performance) -->
-    <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden hidden md:block">
+    <div
+      class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden hidden md:block"
+    >
       <div
         class="absolute top-[-10%] left-[-10%] w-[60%] md:w-[40%] h-[60%] md:h-[40%] rounded-full bg-neutral-700/20 blur-[80px] md:blur-[120px] transform-gpu"
       >
@@ -63,7 +67,9 @@ const headerClass = desktopStickyHeader
 
     <!-- Navigation -->
     <header class={headerClass}>
-      <div class="relative z-10 w-full px-6 md:px-12 h-16 flex items-center justify-between">
+      <div
+        class="relative z-10 w-full px-6 md:px-12 h-16 flex items-center justify-between"
+      >
         <a
           href="/"
           aria-label="Home"
@@ -125,13 +131,23 @@ const headerClass = desktopStickyHeader
         </a>
 
         <!-- Desktop Nav -->
-        <nav class="hidden md:flex gap-6 text-base font-medium text-neutral-300">
+        <nav
+          class="hidden md:flex gap-6 text-base font-medium text-neutral-300"
+        >
           <a href="/" class="hover:text-zinc-400 transition-colors">Home</a>
-          <a href="/projects" class="hover:text-zinc-400 transition-colors">Projects</a>
+          <a href="/projects" class="hover:text-zinc-400 transition-colors"
+            >Projects</a
+          >
           <a href="/blog" class="hover:text-zinc-400 transition-colors">Blog</a>
-          <a href="/software" class="hover:text-zinc-400 transition-colors">Software</a>
-          <a href="/about" class="hover:text-zinc-400 transition-colors">About</a>
-          <a href="/contact" class="hover:text-zinc-400 transition-colors">Contact</a>
+          <a href="/software" class="hover:text-zinc-400 transition-colors"
+            >Software</a
+          >
+          <a href="/about" class="hover:text-zinc-400 transition-colors"
+            >About</a
+          >
+          <a href="/contact" class="hover:text-zinc-400 transition-colors"
+            >Contact</a
+          >
         </nav>
 
         <!-- Mobile Hamburger Button -->
@@ -168,11 +184,19 @@ const headerClass = desktopStickyHeader
           class="flex flex-col p-6 gap-6 text-lg font-medium text-neutral-300"
         >
           <a href="/" class="hover:text-zinc-400 transition-colors">Home</a>
-          <a href="/projects" class="hover:text-zinc-400 transition-colors">Projects</a>
+          <a href="/projects" class="hover:text-zinc-400 transition-colors"
+            >Projects</a
+          >
           <a href="/blog" class="hover:text-zinc-400 transition-colors">Blog</a>
-          <a href="/software" class="hover:text-zinc-400 transition-colors">Software</a>
-          <a href="/about" class="hover:text-zinc-400 transition-colors">About</a>
-          <a href="/contact" class="hover:text-zinc-400 transition-colors">Contact</a>
+          <a href="/software" class="hover:text-zinc-400 transition-colors"
+            >Software</a
+          >
+          <a href="/about" class="hover:text-zinc-400 transition-colors"
+            >About</a
+          >
+          <a href="/contact" class="hover:text-zinc-400 transition-colors"
+            >Contact</a
+          >
         </nav>
       </div>
     </header>
@@ -181,8 +205,12 @@ const headerClass = desktopStickyHeader
       <slot />
     </main>
 
-    <footer class="border-t border-neutral-800 py-4 mt-auto md:backdrop-blur-sm">
-      <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-center items-center text-sm text-neutral-500">
+    <footer
+      class="border-t border-neutral-800 py-4 mt-auto md:backdrop-blur-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 md:px-12 flex justify-center items-center text-sm text-neutral-500"
+      >
         <p>&copy; 2026 Piyush Kumar Singh</p>
       </div>
     </footer>
@@ -256,6 +284,16 @@ const headerClass = desktopStickyHeader
           const scrollElements = document.querySelectorAll(".reveal-on-scroll");
           scrollElements.forEach((el) => observer.observe(el));
         };
+
+        // Automatically process all external links to open in a new tab
+        // This ensures Astro pages (like About/Contact) get the same treatment as Markdown
+        document.querySelectorAll("a").forEach((link) => {
+          if (link.hostname && link.hostname !== window.location.hostname) {
+            link.setAttribute("target", "_blank");
+            link.setAttribute("rel", "noopener noreferrer");
+            link.setAttribute("data-astro-reload", "true");
+          }
+        });
 
         initReveals();
       });

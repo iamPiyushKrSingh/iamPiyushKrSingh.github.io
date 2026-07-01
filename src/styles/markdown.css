@@ -34,8 +34,8 @@
 }
 
 /* The equation column scrolls horizontally when content overflows */
-.numbered-math > .math-display,
-.numbered-math > .katex-display {
+.numbered-math>.math-display,
+.numbered-math>.katex-display {
   overflow-x: auto;
   overflow-y: hidden;
   margin: 0 !important;
@@ -46,7 +46,7 @@
 
 /* Prevent double-scroll when remark-math nests .katex-display inside .math-display
    — scoped to numbered math only so unnumbered $$ equations keep their scroll boundary */
-.numbered-math .math-display > .katex-display {
+.numbered-math .math-display>.katex-display {
   overflow: visible !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -67,13 +67,13 @@
   grid-template-columns: 1fr;
   overflow-x: auto;
   overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
+  /* -webkit-overflow-scrolling: touch; */
   padding: 0.25rem 0;
   margin: 0.75em 0 !important;
   text-align: left !important;
 }
 
-.prose-global .katex-display > .katex {
+.prose-global .katex-display>.katex {
   min-width: 0;
 }
 
@@ -133,7 +133,7 @@
 
 /* Ensure no-filename code blocks have fully rounded corners on the outer frame too */
 .prose-global .expressive-code .frame:not(.has-title) {
-  border-radius: 0.75rem !important; /* rounded-xl */
+  border-radius: 0.75rem !important;
+  /* rounded-xl */
   overflow: hidden;
 }
-

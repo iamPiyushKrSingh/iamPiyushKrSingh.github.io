@@ -319,6 +319,7 @@ export default defineConfig({
       plugins: [pluginLineNumbers()],
       defaultProps: {
         wrap: true,
+        preserveIndent: true,
         showLineNumbers: true,
       },
       styleOverrides: {

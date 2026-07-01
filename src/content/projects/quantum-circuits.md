@@ -1,10 +1,10 @@
 ---
-title: "Markdown Test Project $E=mc^2$"
+title: "QuantumCircuits.jl"
 category: "Coding Projects"
-icon: "terminal"
-tags: ["Test", "Markdown", "Math"]
-summary: "A comprehensive test project designed to showcase the new Markdown capabilities including KaTeX math, code blocks, and rich text formatting."
-featured: true
+icon: "code"
+tags: ["Julia", "Quantum Computing", "Quantum Circuits"]
+summary: "Julia package for classical simuation of `Random Quantum Circuits`."
+featured: false
 order: 1
 ---
 

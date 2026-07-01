@@ -27,7 +27,7 @@ const projects = await Promise.all(
   }),
 );
 
-// Sort projects by the 'order' field in their frontmatter (lowest number first). 
+// Sort projects by the 'order' field in their frontmatter (lowest number first).
 // If no order is provided, they default to 999 (appearing at the end).
 projects.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 
@@ -162,12 +162,12 @@ const projectsByCategory = categories.map((cat) => ({
   <!-- Project Details Modal -->
   <dialog
     id="project-modal"
-    class="bg-transparent p-0 m-auto backdrop:bg-black/80 rounded-2xl shadow-2xl max-w-4xl w-[calc(100%-2rem)] sm:w-full sm:mx-auto border-none group/modal"
+    class="bg-transparent p-0 m-auto backdrop:bg-black/80 rounded-2xl shadow-2xl max-w-4xl w-[calc(100%-2rem)] sm:w-full sm:mx-auto border-none group/modal max-h-[85dvh] md:max-h-[80vh]"
     style="will-change: transform, opacity; backface-visibility: hidden; transform-origin: center;"
   >
     <div
       id="modal-container"
-      class="bg-neutral-950 border border-neutral-700 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col max-h-[90vh] w-full"
+      class="bg-neutral-950 border border-neutral-700 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col max-h-[85dvh] md:max-h-[80vh] w-full"
     >
       <!-- Sticky Header -->
       <div
