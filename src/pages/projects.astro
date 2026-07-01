@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import { parseMathInText } from "../utils/parseMath";
 import { iconMap } from "../utils/iconMap";
+import "../styles/markdown.css";
 
 const categories = [
   "Notes and Material",
@@ -25,6 +26,10 @@ const projects = await Promise.all(
     };
   }),
 );
+
+// Sort projects by the 'order' field in their frontmatter (lowest number first). 
+// If no order is provided, they default to 999 (appearing at the end).
+projects.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 
 const projectsByCategory = categories.map((cat) => ({
   name: cat,
@@ -411,3 +416,62 @@ const projectsByCategory = categories.map((cat) => ({
     }
   });
 </script>
+
+<style is:global>
+  /* Dialog Animations */
+  dialog.fallback-anim[open] {
+    animation: modal-zoom 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: transform, opacity;
+  }
+  dialog::backdrop {
+    animation: modal-fade 0.3s ease-out forwards;
+  }
+  @keyframes modal-zoom {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes modal-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Modal Details Formatting */
+  #modal-details p {
+    margin-bottom: 1rem;
+  }
+  #modal-details p:last-child {
+    margin-bottom: 0;
+  }
+
+  #modal-details strong {
+    color: #71717a;
+  }
+  #modal-details img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(64, 64, 64, 0.5);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Morph Animation Tuning */
+  ::view-transition-group(project-card-morph),
+  ::view-transition-group(project-title-morph) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>

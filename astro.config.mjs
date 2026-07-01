@@ -7,6 +7,11 @@ import rehypeSlug from "rehype-slug";
 import rehypeCitation from "rehype-citation";
 import { visit } from "unist-util-visit";
 
+/**
+ * Wraps bare <span class="katex-display"> elements (produced by $$...$$)
+ * in a block-level <div class="math-display-scroll-NEW"> so that overflow-x: auto
+ * works correctly. A <span> cannot scroll; a <div> can.
+ */
 function remarkMathFencedBlock() {
   /** @param {any} tree */
   return (tree) => {
@@ -38,20 +43,14 @@ function remarkMathFencedBlock() {
               type: "math",
               value: node.value,
               data: {
-                hName: "pre",
+                hName: "div",
+                hProperties: {
+                  className: ["math", "math-display"],
+                },
                 hChildren: [
                   {
-                    type: "element",
-                    tagName: "code",
-                    properties: {
-                      className: ["language-math", "math-display"],
-                    },
-                    children: [
-                      {
-                        type: "text",
-                        value: node.value,
-                      },
-                    ],
+                    type: "text",
+                    value: node.value,
                   },
                 ],
               },
@@ -178,18 +177,22 @@ function rehypeAutoRefs() {
           node.tagName === "span" &&
           node.properties?.className?.includes("katex-display")
         ) {
-          if (index > 0 && parent && parent.children) {
-            const prevNode = parent.children[index - 1];
-            let targetHtmlNode = prevNode;
-            if (prevNode.type === "text" && index > 1) {
-              targetHtmlNode = parent.children[index - 2];
+          if (index !== undefined && parent && parent.children) {
+            let targetHtmlNode = null;
+            // Search backwards for the raw HTML node of numbered math
+            for (let i = index - 1; i >= 0; i--) {
+              const sibling = parent.children[i];
+              if (sibling.type === "element") break; // Stop at previous element
+              if (
+                (sibling.type === "html" || sibling.type === "raw") &&
+                typeof sibling.value === "string"
+              ) {
+                targetHtmlNode = sibling;
+                break;
+              }
             }
 
-            if (
-              (targetHtmlNode.type === "html" ||
-                targetHtmlNode.type === "raw") &&
-              typeof targetHtmlNode.value === "string"
-            ) {
+            if (targetHtmlNode) {
               const match = targetHtmlNode.value.match(
                 /<div[^>]*id=["']([^"']+)["']/i,
               );

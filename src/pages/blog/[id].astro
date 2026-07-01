@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { parseMathInText } from "../../utils/parseMath";
+import "../../styles/markdown.css";
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -235,28 +236,28 @@ for (const h of headings) {
 
 <style is:global>
   article {
-    counter-reset: h1-counter h2-counter figure-counter eq-counter;
+    counter-reset: h2-counter h3-counter figure-counter eq-counter;
   }
   
   /* Section Numbering */
-  article .prose h1 {
-    counter-increment: h1-counter;
-    counter-reset: h2-counter;
+  article .prose-global h2 {
+    counter-increment: h2-counter;
+    counter-reset: h3-counter;
   }
-  article .prose h1::before {
-    content: "§ " counter(h1-counter) ". ";
+  article .prose-global h2::before {
+    content: "§" counter(h2-counter) ". ";
     color: #a1a1aa; /* zinc-400 */
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
   }
   
   /* Sub-section Numbering */
-  article .prose h2 {
-    counter-increment: h2-counter;
+  article .prose-global h3 {
+    counter-increment: h3-counter;
   }
-  article .prose h2::before {
-    content: "§ " counter(h1-counter) "." counter(h2-counter) " ";
-    color: #a1a1aa;
-    margin-right: 0.25rem;
+  article .prose-global h3::before {
+    content: "§" counter(h2-counter) "." counter(h3-counter) " ";
+    color: #a1a1aa; /* zinc-400 */
+    margin-right: 0.5rem;
   }
 
   /* Figure Numbering */
@@ -269,32 +270,15 @@ for (const h of headings) {
     color: #d4d4d4;
   }
 
-  /* Equation Numbering */
-  article .numbered-math .katex-display {
-    counter-increment: eq-counter;
-    position: relative;
-  }
-
-  article .numbered-math .katex-display::after {
-    content: "(" counter(eq-counter) ")";
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.9em;
-    color: #737373; /* neutral-500 */
-    font-family: serif;
-  }
-
   /* Internal References (Sections, Equations, Footnotes) */
-  article .prose a[href^="#"] {
+  article .prose-global a[href^="#"] {
     color: #e4e4e7; /* zinc-200, slightly brighter than standard links */
     text-decoration: underline;
     text-decoration-style: dotted;
     text-underline-offset: 4px;
     transition: all 0.2s ease-in-out;
   }
-  article .prose a[href^="#"]:hover {
+  article .prose-global a[href^="#"]:hover {
     color: #ffffff;
     text-decoration-style: solid;
   }

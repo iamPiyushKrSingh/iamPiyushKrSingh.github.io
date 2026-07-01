@@ -72,7 +72,7 @@ const featuredProjects = allProjects
           class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-3 md:mb-6 font-[Outfit] min-h-20 md:min-h-0"
           transition:name="page-title"
         >
-          Exploring the <br class="hidden md:block" />
+          Exploring <br class="hidden md:block" />
           <span
             id="typewriter"
             class="text-transparent bg-clip-text bg-linear-to-r from-zinc-400 to-neutral-200 border-r-4 border-zinc-400 pr-1 animate-pulse whitespace-nowrap"
@@ -359,3 +359,23 @@ const featuredProjects = allProjects
   // Re-run if user navigates back to the page via View Transitions
   document.addEventListener("astro:after-swap", initTyping);
 </script>
+
+<style is:global>
+  /* Atom Logo Animations */
+  @keyframes atom-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-atom {
+    animation: atom-spin 20s linear infinite;
+  }
+
+  .group:hover .animate-atom {
+    animation-duration: 3s;
+  }
+</style>

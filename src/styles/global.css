@@ -38,102 +38,14 @@
     text-decoration-style: solid !important;
   }
 
-  /* Section Numbering for Markdown Content */
-  .prose-global {
-    counter-reset: h2-counter;
-  }
-  .prose-global h2 {
-    counter-increment: h2-counter;
-    counter-reset: h3-counter;
-  }
-  .prose-global h2::before {
-    content: "§" counter(h2-counter) ". ";
-    color: #a1a1aa;
-    margin-right: 0.5rem;
-  }
-  .prose-global h3 {
-    counter-increment: h3-counter;
-  }
-  .prose-global h3::before {
-    content: "§" counter(h2-counter) "." counter(h3-counter) " ";
-    color: #a1a1aa;
-    margin-right: 0.5rem;
-  }
-
   .prose-global table {
     @apply block overflow-x-auto whitespace-nowrap max-w-full;
-  }
-
-  .prose-global pre {
-    @apply rounded-xl! border! border-neutral-800/50! shadow-lg overflow-x-auto max-w-full;
-  }
-  
-  .prose-global pre code {
-    @apply bg-transparent text-inherit p-0 font-normal;
-  }
-
-  .prose-global figure {
-    @apply w-full sm:w-3/4 sm:mx-auto my-10;
   }
 }
 
 /* Scale down the entire site layout by 10% (mimicking a 90% zoom level) */
 html {
   font-size: 90%;
-}
-/* Custom styles for Math/KaTeX to ensure proper scrolling on small screens */
-.math-display {
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  padding: 1rem 0;
-  max-width: 100% !important;
-}
-
-.katex-display {
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  padding: 1rem 0;
-  max-width: 100% !important;
-}
-
-.numbered-math {
-  max-width: 100% !important;
-  overflow-x: auto !important;
-}
-
-article .numbered-math .katex-display {
-  counter-increment: eq-counter;
-}
-
-/* Number display and right-alignment */
-article .numbered-math .katex-display::after {
-  content: "(" counter(eq-counter) ")";
-  float: right;
-  font-family: 'Inter', sans-serif;
-  color: #94a3b8; /* neutral-400 */
-}
-
-/* Ensure inline math doesn't break lines awkwardly */
-.katex {
-  white-space: nowrap;
-}
-
-/* Atom Logo Animations */
-@keyframes atom-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-atom {
-  animation: atom-spin 20s linear infinite;
-}
-
-.group:hover .animate-atom {
-  animation-duration: 3s;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -147,107 +59,6 @@ article .numbered-math .katex-display::after {
   scrollbar-width: none;  /* Firefox */
 }
 
-/* Bibliography / Citation Styling */
-.csl-entry {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.csl-left-margin {
-  flex-shrink: 0;
-  color: #71717a; /* zinc-500 */
-  font-weight: 600;
-}
-
-.csl-right-inline {
-  flex-grow: 1;
-}
-
-/* Global mobile responsiveness overrides */
-.expressive-code {
-  max-width: 100% !important;
-  min-width: 0 !important;
-  overflow-x: auto !important;
-  margin-top: 2rem !important;
-  margin-bottom: 2rem !important;
-}
-.expressive-code .frame {
-  max-width: 100% !important;
-  min-width: 0 !important;
-}
-.expressive-code pre {
-  max-width: 100% !important;
-  overflow-x: auto !important;
-}
-table {
-  max-width: 100% !important;
-  overflow-x: auto !important;
-  display: block !important;
-}
-
-/* Fix Tailwind Typography prose class applying border-radius to expressive-code <pre> tags and breaking title bars */
-.prose .expressive-code pre {
-  border-radius: 0 !important;
-  margin: 0 !important;
-}
-
-/* Dialog Animations (Projects Page) */
-dialog.fallback-anim[open] {
-  animation: modal-zoom 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: transform, opacity;
-}
-dialog::backdrop {
-  animation: modal-fade 0.3s ease-out forwards;
-}
-@keyframes modal-zoom {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes modal-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Modal Details Formatting */
-#modal-details p {
-  margin-bottom: 1rem;
-}
-#modal-details p:last-child {
-  margin-bottom: 0;
-}
-
-#modal-details strong {
-  color: #71717a;
-}
-#modal-details img {
-  width: 100%;
-  height: auto;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(64, 64, 64, 0.5);
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Morph Animation Tuning */
-::view-transition-group(project-card-morph),
-::view-transition-group(project-title-morph) {
-  animation-duration: 0.4s;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-}
 
 /* Custom Themed Auto-Hiding Scrollbar */
 * {

@@ -5,6 +5,7 @@ icon: "terminal"
 tags: ["Test", "Markdown", "Math"]
 summary: "A comprehensive test project designed to showcase the new Markdown capabilities including KaTeX math, code blocks, and rich text formatting."
 featured: true
+order: 1
 ---
 
 Welcome to the new Markdown-powered projects system! Because we migrated away from JSON, you can now write your project details using standard Markdown formatting.
